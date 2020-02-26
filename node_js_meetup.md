@@ -25,7 +25,7 @@ https://rasjonell.tech
 
 ---
 
-# How am I
+# Who am I
 
 ![bg left:40% 80%](https://avatars1.githubusercontent.com/u/20546214?s=460&v=4)
 
@@ -38,6 +38,27 @@ https://rasjonell.tech
 
 ---
 
+# What are we going to build
+
+<style>
+  p {
+    text-align: center;
+  }
+</style>
+
+![bg left:50% 70%](./screenshot.png)
+
+Social Media App
+
+- Users can follow each other
+- Mute other users
+- Have multiple timelines
+- Create posts
+- Rate posts
+- Get basic recommendations
+
+---
+
 <style scoped>
   section {
     display: flex;
@@ -45,76 +66,134 @@ https://rasjonell.tech
     flex-direction: column;
     justify-content: center;
   }
-</style>
 
-# What are we going to build
+  p {
+    width: 100%;
+    height: 100%;
+  }
 
-Short demo time!
-
----
-
-![bg left:50% 95%](./basic_arch.svg)
-
-<style scoped>
-  h1 {
-    margin-top: 100px;
+  img {
+    width: 100%;
+    height: 100%;
   }
 </style>
 
-## Bloated API Layer.
+## Monolith Design.
+
+![basic Architecture](./basic_arch.svg)
+
+---
+
+## Bloated API:
 
 - Presentation Layer (JSON API).
 - Business Logic Code.
 - Database Domain Logic Code.
 
-Problems:
+## Problems:
 
 - No separation of concerns.
 - Unable to scale independently.
 
 ---
 
-![bg left:50% 95%](./microservice.svg)
-
 <style scoped>
-  h1 {
-    margin-top: 100px;
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  p {
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
   }
 </style>
 
 ## Microservice Architecture.
 
+![Microservice](./microservice.svg)
+
+---
+
+## Benefits:
+
 - Separation of concerns.
 - Ability to scale different areas independently.
 
-Problems:
+## Problems:
 
 - Duplication of data domain logic.
 
 ---
 
-![bg left:50% 95%](./dal1.svg)
-
 <style scoped>
   section {
-    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  h2 {
-    margin-top: 0;
+  p {
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
   }
 </style>
 
 ## Separate Data Access Layer.
 
+![DAL](./dal1.svg)
+
+---
+
+## Benefits:
+
 - Clear separation of concerns.
 - Ability to scale BLL/DAL independently.
 - No duplication of data domain logic.
 
-Problems:
+## Problems:
 
 - Performance.
+- Network overhead.
 - Single point of failure.
+
+---
+
+<style scoped>
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  p {
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+## Separate Data Access Layer (continued).
+
+![DAL](./dal2.svg)
 
 ---
 
@@ -137,7 +216,54 @@ Problems:
   }
 </style>
 
-![](./foxx.svg)
+![Foxx](./foxx.svg)
+
+---
+
+# Foxx Services
+
+> ArangoDB allows application developers to write their data access and domain logic as microservices running directly within the database with native access to in-memory data. The Foxx microservice framework makes it easy to extend ArangoDB’s own REST API with custom HTTP endpoints using modern JavaScript running on the same V8 engine you know from Node.js and the Google Chrome web browser.
+
+---
+
+# Foxx ≠ Node.js
+
+- **Foxx services are purely synchronous and blocking!**
+- You should not perform long-running operations.
+- You should avoid external operations that may affect the db performance.
+
+---
+
+<style scoped>
+  section {
+    padding-top: 15px;
+  }
+
+  code {
+    fontSize: 18px;
+  }
+</style>
+
+## Compatibility With NodeJs
+
+NodeJs:
+
+```js
+const crypto = require('crypto');
+const hash = crypto
+  .createHash('sha512')
+  .update('password')
+  .digest('hex');
+console.log(hash); // 109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c...
+```
+
+Foxx
+
+```js
+const createAuth = require('@arangodb/foxx/auth');
+const auth = createAuth();
+console.log(auth.create('password')); // 109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c...
+```
 
 ---
 
