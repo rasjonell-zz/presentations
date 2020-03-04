@@ -19,13 +19,13 @@ marp: true
 
 ![bg left:40% 80%](https://www.arangodb.com/wp-content/uploads/2016/10/ArangoDB-logo-bg.svg)
 
-# TypeScript Powered DAL Microservcies
+# TypeScript Powered DAL MicroServices
 
 https://rasjonell.tech
 
 ---
 
-# Who am I
+# Who Am I?
 
 ![bg left:40% 80%](https://avatars1.githubusercontent.com/u/20546214?s=460&v=4)
 
@@ -38,7 +38,7 @@ https://rasjonell.tech
 
 ---
 
-# What are we going to build
+# What Are We Going To Build?
 
 <style>
   p {
@@ -46,16 +46,16 @@ https://rasjonell.tech
   }
 </style>
 
-![bg left:50% 70%](./screenshot.png)
+![bg left:50% 90%](./zuck_life.png)
 
 Social Media App
 
 - Users can follow each other
-- Mute other users
-- Have multiple timelines
 - Create posts
 - Rate posts
 - Get basic recommendations
+- Have multiple timelines
+- Mute other users
 
 ---
 
@@ -129,6 +129,7 @@ Social Media App
 
 ## Problems:
 
+- Data domain log inside the BLL.
 - Duplication of data domain logic.
 
 ---
@@ -226,11 +227,37 @@ Social Media App
 
 ---
 
+<style scoped>
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
+
+# How Foxx Works
+
+- Foxx services run embedded in ArangoDB.
+- Each service is mounted in each available V8 context
+- Incoming requests are distributed across these contexts automatically.
+
+---
+
+<style scoped>
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
+
 # Foxx ≠ Node.js
 
 - **Foxx services are purely synchronous and blocking!**
 - You should not perform long-running operations.
-- You should avoid external operations that may affect the db performance.
+- You should avoid external operations that may affect the database performance.
 
 ---
 
@@ -244,9 +271,9 @@ Social Media App
   }
 </style>
 
-## Compatibility With NodeJs
+## Compatibility With NodeJS
 
-NodeJs:
+NodeJS:
 
 ```js
 const crypto = require('crypto');
@@ -257,7 +284,7 @@ const hash = crypto
 console.log(hash); // 109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c...
 ```
 
-Foxx
+Foxx:
 
 ```js
 const createAuth = require('@arangodb/foxx/auth');
@@ -267,9 +294,49 @@ console.log(auth.create('password')); // 109f3bbbc244eb82441917ed06d618b9008dd09
 
 ---
 
-# Me on WWW
+<style scoped>
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
 
-- [Blog](https://rasjonell.tech/)
-- [Twitter](https://twitter.com/iRasjonell)
-- [Mastodon](https://թութ.հայ/@gurgen)
-- [Dev.to](https://dev.to/rasjonell)
+## Compatibility With NodeJS (Cont.)
+
+> - Modules written to work in Node.js and the browser that do not rely on async behavior should generally work
+> - Modules that rely on network or filesystem I/O or make heavy use of async behavior most likely will not
+
+---
+
+<style scoped>
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
+
+# Foxx In Action!
+
+github.com/rasjonell/zuck_life
+
+---
+
+<style scoped>
+  section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+</style>
+
+# Me On The WWW
+
+- Blog - https://rasjonell.tech/
+- Twitter - https://twitter.com/iRasjonell
+- Mastodon - https://թութ.հայ/@gurgen
+- Dev - https://dev.to/rasjonell
